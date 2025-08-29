@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# Phase 1: Core Functionality Test
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a minimal, monolithic implementation of a DCT-based video steganography system.
 
-## Available Scripts
+The **only goal** of this phase is to prove that we can embed data into a video and extract it again with **100% bit-for-bit accuracy** on a local file.
 
-In the project directory, you can run:
+## 🎯 Architecture
 
-### `npm start`
+- **`main.py`**: A single script containing all embedding and extraction logic. This avoids architectural complexity and makes debugging the core data flow straightforward.
+- **No external dependencies** other than `numpy` and `opencv-python`.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## ⚙️ How to Run
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1.  **Set up the environment:**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-### `npm test`
+2.  **Prepare your files:**
+    - Place your cover video at `input/cover.mp4`.
+    - Place your secret file at `input/secret.txt`.
+    - *(Note: The script will create dummy files if these are missing, but using a real video is recommended).*
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3.  **Run the script:**
+    ```bash
+    python3 main.py
+    ```
 
-### `npm run build`
+## ✅ Expected Outcome
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The script will perform three steps:
+1.  **Embed** `input/secret.txt` into `input/cover.mp4`, creating `output/stego_video.mp4`.
+2.  **Extract** the hidden data from `output/stego_video.mp4` into `output/recovered_secret.txt`.
+3.  **Verify** that the MD5 hash of the original and recovered files match.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The final output should be:
